@@ -4,3 +4,5 @@ en:
     mumble_cvp: "The URL to the Channel Viewer Protocol service"
     mumble_xml: "Whether the CVP service returns XML (if false expects JSON)"
     mumble_afkchannel: "name of the afk channel (users in there will not be counted global)"
+    mumble_server_ui_connect_path: "This is the server connect hostname/ip shown to the end user"
+    mumble_server_ui_connect_port: "This is the server connect port shown to the end user"

@@ -118,13 +118,15 @@ function renderBadge()
 
 function renderPanel()
 {
+	const siteSettings = Discourse.__container__.lookup("site-settings:main");
+
 	let panel = document.getElementById("mumble-menu");
 	panel.innerHTML = "<h3>Voice Server</h3>"; // clear existing DOM
-	panel.innerHTML += "<p>Join us in our Mumble server.  We usually chat at a convenient(?) 2:30AM PST most nights.";
+	panel.innerHTML += "<p>Join us in our Mumble server!  We usually chat at a convenient(?) 2:30AM PST most nights.";
 	panel.innerHTML += "<hr>";
 	panel.innerHTML += "<h4>Connection Info</h4>";
 	panel.innerHTML += "<p>First, <a href='https://www.mumble.info/downloads/' target='_blank'>download</a> Mumble/Mumla client for Win, Mac, Linux, Android, or iOS.";
-	panel.innerHTML += "<p>Then connect to <code>warble.skycorp.global</code> port <code>64738</code>.  "
+	panel.innerHTML += "<p>Then connect to <code>" + siteSettings.mumble_server_ui_connect_path + "</code> port <code>" + siteSettings.mumble_server_ui_connect_port + "</code>.  "
 	panel.innerHTML += "<hr>"
 
 	if (mumbleData == null)

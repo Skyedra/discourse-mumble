@@ -9,3 +9,9 @@ plugins:
   mumble_afkchannel:
     default: ''
     client: true
+  mumble_server_ui_connect_path:
+    default: ''
+    client: true
+  mumble_server_ui_connect_port:
+    default: 0
+    client: true
