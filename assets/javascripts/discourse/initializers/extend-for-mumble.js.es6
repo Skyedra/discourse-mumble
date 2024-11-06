@@ -30,6 +30,19 @@ function subscribeMumble() {
   });
 }
 
+function sanitize(string) {
+	const map = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#x27;',
+		"/": '&#x2F;',
+	};
+	const reg = /[&<>"'/]/ig;
+	return string.replace(reg, (match)=>(map[match]));
+  }
+
 function getChannelHTML(channel)
 {
 	let outputText = "<li class='mumble-channel-name'>Channel:  " + channel.name + "</li>";
@@ -44,7 +57,7 @@ function getChannelHTML(channel)
 				outputText += iconHTML("microphone-slash", { class: 'mumble-user-icon'});
 			else
 				outputText += iconHTML("microphone", { class: 'mumble-user-icon'});
-			outputText += " " + user.name + "</li>";
+			outputText += " " + sanitize(user.name) + "</li>";
 		});
 		outputText += "</ul>";
 	}
