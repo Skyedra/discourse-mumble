@@ -39,12 +39,11 @@ function getChannelHTML(channel)
 		channel.users.forEach((user) => {
 			outputText += "<li>";
 			if (user.deaf || user.selfDeaf)
-				outputText += iconHTML("volume-mute", { class: 'mumble-user-icon'});;;
+				outputText += iconHTML("volume-mute", { class: 'mumble-user-icon'});
 			else if (user.mute || user.selfMute)
-				outputText += iconHTML("microphone-slash", { class: 'mumble-user-icon'});;
+				outputText += iconHTML("microphone-slash", { class: 'mumble-user-icon'});
 			else
 				outputText += iconHTML("microphone", { class: 'mumble-user-icon'});
-			//"🎤";
 			outputText += " " + user.name + "</li>";
 		});
 		outputText += "</ul>";
