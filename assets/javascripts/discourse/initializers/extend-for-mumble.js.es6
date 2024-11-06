@@ -81,6 +81,12 @@ function setBadge(userCount)
 		return;
 	}
 
+	if (badge == null && userCount == 0)
+	{
+		// No badge, but none is needed
+		return;
+	}
+
 	if (badge == null && userCount > 0)
 	{
 		// No badge currently, need to add badge
