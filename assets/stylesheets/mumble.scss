@@ -33,3 +33,17 @@
     color: dark-light-choose(scale-color($primary, $lightness: 75%), scale-color($secondary, $lightness: 75%));
   }
 }
+
+.mumble-chat-list {
+
+	.mumble-channel-name
+	{
+		color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
+	}
+	ul
+	{
+		margin-left: 10px;
+		list-style: circle;
+		padding-left: 5px;
+	}
+}

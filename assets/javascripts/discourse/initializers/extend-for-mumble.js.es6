@@ -2,6 +2,7 @@ import { withPluginApi } from 'discourse/lib/plugin-api';
 import { iconNode } from 'discourse-common/lib/icon-library';
 import { h } from 'virtual-dom';
 import { ajax } from 'discourse/lib/ajax';
+import MumbleHeaderIcon from "../components/mumble-icon";
 
 let mumbleIconWidget, mumblePanelWidget, mumbleData;
 
@@ -28,14 +29,83 @@ function subscribeMumble() {
   });
 }
 
-function rerenderWidgets() {
+function getChannelHTML(channel)
+{
+	let outputText = "<li class='mumble-channel-name'>Channel:  " + channel.name + "</li>";
+	if (channel.users)
+	{
+		outputText += "<ul>";
+		channel.users.forEach((user) => {
+			outputText += "<li>";
+			if (user.deaf || user.selfDeaf)
+				outputText += "🔇";
+			else if (user.mute || user.selfMute)
+				outputText += "🎧";
+			else
+				outputText += "🎤";
+			outputText += " " + user.name + "</li>";
+		});
+		outputText += "</ul>";
+	}
+	if (channel.channels)
+		{
+			channel.channels.forEach((subChannel) => {
+				outputText += getChannelHTML(subChannel);
+			});
+		}
+	return outputText;
+}
+
+function rerenderWidgets() 
+{
+	let panel = document.getElementById("mumble-menu");
+	panel.innerHTML = "<h3>Voice Server</h3>"; // clear existing DOM
+	panel.innerHTML += "<p>Join us in our Mumble server.  We usually chat at a convenient(?) 2:30AM PST most nights.";
+	panel.innerHTML += "<hr>";
+	panel.innerHTML += "<h4>Connection Info</h4>";
+	panel.innerHTML += "<p>First, <a href='https://www.mumble.info/downloads/'>download</a> Mumble/Mumla for Win, Mac, Linux, Android, or iOS.";
+	panel.innerHTML += "<p>Then connect to <code>warble.skycorp.global</code> port <code>64738</code>.  "
+	panel.innerHTML += "<hr>"
+	panel.innerHTML += "<h4>Currently Chatting</h4>";
+	
+	if (mumbleData == null)
+		panel.innerHTML += "(No connection.)";
+	else {
+		panel.innerHTML += "<ul class='mumble-chat-list'>" + getChannelHTML(mumbleData.root) + "</ul>";
+
+		panel.innerHTML += "<hr>" + countUsers(mumbleData.root) + " user(s) connected.";
+	}
+	
+
   // ugly but works...
+  /*
   if (mumbleIconWidget) {
     mumbleIconWidget.scheduleRerender();
   }
   if (mumblePanelWidget) {
     mumblePanelWidget.scheduleRerender();
   }
+	*/
+/*
+	const caretIcon = state.expanded ? "caret-down" : "caret-right";
+      const body      = [h("div.mumble-channel-name", [iconNode(caretIcon), attrs.channel.name])];
+
+      if (state.expanded) {
+        const list = [];
+        attrs.channel.channels.forEach((channel) => {
+          list.push(this.attach("mumble-channel", {channel}));
+        });
+
+        attrs.channel.users.forEach((user) => {
+          list.push(this.attach("mumble-user", {user}));
+        });
+
+        body.push(h("div", list));
+      }
+
+	
+	document.getElementById("mumble-menu").append(body);
+	*/
 }
 
 function initMumbleWidget(api) {
@@ -152,6 +222,10 @@ function initMumbleWidget(api) {
     }
   });
 
+  /// EEE
+  api.headerIcons.add("mumble", MumbleHeaderIcon, { before: "chat" });
+
+  /*
   api.decorateWidget('header-icons:before', dec => {
     mumbleIconWidget = dec.widget;
     const state = dec.widget.parentWidget.state;
@@ -170,6 +244,7 @@ function initMumbleWidget(api) {
     mumblePanelWidget = this;
     return {attrs, state, data: mumbleData};
   });
+  */
 
   ajax("/mumble/list.json").then((result) => {
     if (result.data) {
