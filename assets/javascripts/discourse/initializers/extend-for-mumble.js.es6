@@ -62,15 +62,55 @@ function getChannelHTML(channel)
 		outputText += "</ul>";
 	}
 	if (channel.channels)
-		{
-			channel.channels.forEach((subChannel) => {
-				outputText += getChannelHTML(subChannel);
-			});
-		}
+	{
+		channel.channels.forEach((subChannel) => {
+			outputText += getChannelHTML(subChannel);
+		});
+	}
 	return outputText;
 }
 
+function setBadge(userCount)
+{
+	var badge = document.getElementById("mumble-user-count-badge");
+
+	if (badge != null && userCount == 0)
+	{
+		// Delete badge, no more users
+		badge.remove();
+		return;
+	}
+
+	if (badge == null && userCount > 0)
+	{
+		// No badge currently, need to add badge
+		var button = document.getElementsByClassName("mumble-dropdown")[0].children[0];
+		badge = document.createElement('div');
+		badge.id = "mumble-user-count-badge";
+		button.appendChild(badge);
+	}
+
+	// Update badge count
+	badge.innerText = userCount;
+}
+
 function rerenderWidgets() 
+{
+	renderPanel();
+	renderBadge();
+}
+
+function renderBadge()
+{
+	var userCount = 0;
+	if (mumbleData != null)
+	{
+		userCount = countUsers(mumbleData.root);
+	}
+	setBadge(userCount);
+}
+
+function renderPanel()
 {
 	let panel = document.getElementById("mumble-menu");
 	panel.innerHTML = "<h3>Voice Server</h3>"; // clear existing DOM

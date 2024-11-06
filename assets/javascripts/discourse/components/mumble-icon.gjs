@@ -164,7 +164,7 @@ export default class MumbleHeaderIcon extends Component {
 		@targetSelector=".mumble-menu-panel"
 		@onClick={{this.toggleMumbleMenu}}
 		@active={{this.mumbleVisible}}
-	/>
+	/> 	
 	<div class="mumble-menu glimmer-mumble-menu" aria-live="polite" ...attributes>
 		<div class="menu-panel mumble-menu-panel drop-down" id='mumble-menu' data-max-width="500" style="display: none;">
 			(Mumble server may be offline... this will refresh if it comes back online.)
