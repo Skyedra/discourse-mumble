@@ -167,7 +167,7 @@ export default class MumbleHeaderIcon extends Component {
 	/>
 	<div class="mumble-menu glimmer-mumble-menu" aria-live="polite" ...attributes>
 		<div class="menu-panel mumble-menu-panel drop-down" id='mumble-menu' data-max-width="500" style="display: none;">
-			(Please wait, information should appear shortly...)
+			(Mumble server may be offline... this will refresh if it comes back online.)
 		</div>
 	</div>
  </template>

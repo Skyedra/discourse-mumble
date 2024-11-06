@@ -64,19 +64,25 @@ function rerenderWidgets()
 	panel.innerHTML += "<p>Join us in our Mumble server.  We usually chat at a convenient(?) 2:30AM PST most nights.";
 	panel.innerHTML += "<hr>";
 	panel.innerHTML += "<h4>Connection Info</h4>";
-	panel.innerHTML += "<p>First, <a href='https://www.mumble.info/downloads/'>download</a> Mumble/Mumla for Win, Mac, Linux, Android, or iOS.";
+	panel.innerHTML += "<p>First, <a href='https://www.mumble.info/downloads/' target='_blank'>download</a> Mumble/Mumla client for Win, Mac, Linux, Android, or iOS.";
 	panel.innerHTML += "<p>Then connect to <code>warble.skycorp.global</code> port <code>64738</code>.  "
 	panel.innerHTML += "<hr>"
-	panel.innerHTML += "<h4>Currently Chatting</h4>";
-	
-	if (mumbleData == null)
-		panel.innerHTML += "(No connection.)";
-	else {
-		panel.innerHTML += "<ul class='mumble-chat-list'>" + getChannelHTML(mumbleData.root) + "</ul>";
 
-		panel.innerHTML += "<hr>" + countUsers(mumbleData.root) + " user(s) connected.";
+	if (mumbleData == null)
+		panel.innerHTML += "(No connection for live data.)";
+	else
+	{
+		var totalUsers = countUsers(mumbleData.root);
+
+		if (totalUsers == 0)
+		{
+			panel.innerHTML += "(No users currently connected.)";
+		} else {
+			panel.innerHTML += "<h4>Currently Chatting</h4>";
+			panel.innerHTML += "<ul class='mumble-chat-list'>" + getChannelHTML(mumbleData.root) + "</ul>";
+			panel.innerHTML += "<hr>" + totalUsers + " user(s) connected.";
+		}
 	}
-	
 
   // ugly but works...
   /*
