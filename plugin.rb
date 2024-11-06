@@ -12,6 +12,9 @@ if respond_to?(:register_svg_icon)
   register_svg_icon "caret-down"
   register_svg_icon "caret-right"
   register_svg_icon "user"
+  register_svg_icon "microphone"
+  register_svg_icon "microphone-slash"
+  register_svg_icon "volume-mute"
 end
 
 after_initialize {

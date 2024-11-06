@@ -1,5 +1,6 @@
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import { iconNode } from 'discourse-common/lib/icon-library';
+import { iconHTML } from 'discourse-common/lib/icon-library';
 import { h } from 'virtual-dom';
 import { ajax } from 'discourse/lib/ajax';
 import MumbleHeaderIcon from "../components/mumble-icon";
@@ -38,11 +39,12 @@ function getChannelHTML(channel)
 		channel.users.forEach((user) => {
 			outputText += "<li>";
 			if (user.deaf || user.selfDeaf)
-				outputText += "🔇";
+				outputText += iconHTML("volume-mute", { class: 'mumble-user-icon'});;;
 			else if (user.mute || user.selfMute)
-				outputText += "🎧";
+				outputText += iconHTML("microphone-slash", { class: 'mumble-user-icon'});;
 			else
-				outputText += "🎤";
+				outputText += iconHTML("microphone", { class: 'mumble-user-icon'});
+			//"🎤";
 			outputText += " " + user.name + "</li>";
 		});
 		outputText += "</ul>";

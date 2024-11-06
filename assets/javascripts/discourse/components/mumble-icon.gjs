@@ -159,7 +159,7 @@ export default class MumbleHeaderIcon extends Component {
  <template>
 	<Dropdown
 		@title="mumble.icon.title"
-		@icon="headphones"
+		@icon="microphone"
 		@className="mumble-dropdown"
 		@targetSelector=".mumble-menu-panel"
 		@onClick={{this.toggleMumbleMenu}}
