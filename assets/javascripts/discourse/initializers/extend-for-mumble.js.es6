@@ -122,7 +122,18 @@ function renderPanel()
 
 	let panel = document.getElementById("mumble-menu");
 	panel.innerHTML = "<h3>Voice Server</h3>"; // clear existing DOM
-	panel.innerHTML += "<p>Join us in our Mumble server!  We usually chat at a convenient(?) 2:30AM PST most nights.";
+	panel.innerHTML += "<p>Join us in our Mumble server!  ";
+	if (siteSettings.mumble_daily_meet_time != '')
+	{
+		let currentTime = new Date();
+		// (I put in the current day in the hopes that when the clocks spring forward or back (ugh), this will update the
+		// time correctly to shift with the clocks.)
+		let meetTime = new Date(currentTime.getFullYear() + " " + currentTime.getMonth() + " " + currentTime.getDay() +
+			 " " + "02:30:00 -800")
+		let convertedTime = meetTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', timeZoneName:'longGeneric'});
+		panel.innerHTML += "We chat at " + convertedTime + " most days.";
+	}
+	
 	panel.innerHTML += "<hr>";
 	panel.innerHTML += "<h4>Connection Info</h4>";
 	panel.innerHTML += "<p>First, <a href='https://www.mumble.info/downloads/' target='_blank'>download</a> Mumble/Mumla client for Win, Mac, Linux, Android, or iOS.";
@@ -130,7 +141,7 @@ function renderPanel()
 	panel.innerHTML += "<hr>"
 
 	if (mumbleData == null)
-		panel.innerHTML += "(No connection for live data.)";
+		panel.innerHTML += "(No connection for live data, server may be offline.)";
 	else
 	{
 		var totalUsers = countUsers(mumbleData.root);

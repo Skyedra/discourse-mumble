@@ -15,3 +15,6 @@ plugins:
   mumble_server_ui_connect_port:
     default: 0
     client: true
+  mumble_daily_meet_time:
+    default: ''
+    client: true
