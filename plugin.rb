@@ -1,8 +1,8 @@
 # name: Mumble
 # about: Displays channel and user information from a Mumble server
-# version: 0.3.0
-# authors: Nuno Freitas (nunofreitas@gmail.com)
-# url: https://github.com/nunof07/discourse-mumble
+# version: 0.4.0
+# authors: Skye
+# url: https://github.com/skyedra/discourse-mumble
 
 enabled_site_setting :mumble_enabled
 
