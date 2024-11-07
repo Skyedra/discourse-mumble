@@ -1,6 +1,8 @@
 # Mumble plugin for Discourse
 A 2024 revival of [nunof07's discourse-mumble plugin](https://github.com/nunof07/discourse-mumble).
 
+![Discourse Mumble Plugin Screenshot](https://github.com/Skyedra/discourse-mumble/blob/master/discourse-mumble-screenshot.png?raw=true)
+
 Mumble Viewer plugin for Discourse that displays channel and user information.
 - [Discourse] is an open source discussion platform.
 - [Mumble] is an open source voice chat software.
@@ -23,10 +25,6 @@ The plugin adds a button to the header.
 - Clicking the button opens a menu with the list of channels and users.
 - Idle users have a toned down icon.
 - Information is refreshed periodically (configurable).
-
-## Screenshot
-
-![Discourse Mumble Plugin Screenshot](https://cdn.rawgit.com/skyedra/discourse-mumble/9a3d7866096885567201e2d1bf44a3b8e6cf78cc/discourse-mumble-screenshot.png)
 
 ## Backend
 
