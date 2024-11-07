@@ -129,7 +129,7 @@ function renderPanel()
 		// (I put in the current day in the hopes that when the clocks spring forward or back (ugh), this will update the
 		// time correctly to shift with the clocks.)
 		let meetTime = new Date(currentTime.getFullYear() + " " + currentTime.getMonth() + " " + currentTime.getDay() +
-			 " " + "02:30:00 -800")
+			 " " + siteSettings.mumble_daily_meet_time)
 		let convertedTime = meetTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', timeZoneName:'longGeneric'});
 		panel.innerHTML += "We chat at " + convertedTime + " most days.";
 	}
