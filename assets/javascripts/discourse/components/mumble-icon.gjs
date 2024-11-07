@@ -8,12 +8,19 @@ import I18n from "discourse-i18n";
 import Dropdown from "discourse/components/header/dropdown";
 import DropdownMenu from "discourse/components/dropdown-menu";
 import { action } from "@ember/object";
+import { rerenderWidgets } from "../initializers/extend-for-mumble";
+import { requestInitialData } from "../initializers/extend-for-mumble";
 
 export default class MumbleHeaderIcon extends Component {
   @service currentUser;
   @service site;
   @service chatStateManager;
   @service router;
+
+  constructor() {
+    super(...arguments);
+	requestInitialData();
+  }
 
 /*
   get showUnreadIndicator() {
@@ -141,6 +148,8 @@ export default class MumbleHeaderIcon extends Component {
 	{
 		document.getElementById("mumble-menu").style.display = 'block';
 		document.getElementsByClassName("mumble-dropdown")[0].classList.add('active');  // no idea how to get discourse to just use an id for the button >.<
+
+		rerenderWidgets(); // even if data isn't available, can at least render general info
 	}
 	else
 	{

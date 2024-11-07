@@ -90,7 +90,9 @@ function setBadge(userCount)
 	if (badge == null && userCount > 0)
 	{
 		// No badge currently, need to add badge
-		var button = document.getElementsByClassName("mumble-dropdown")[0].children[0];
+		var button = document.getElementsByClassName("mumble-dropdown")[0]?.children[0];
+		if (button == null)
+			return; // too early for update, dropdown not yet added to ui
 		badge = document.createElement('div');
 		badge.id = "mumble-user-count-badge";
 		button.appendChild(badge);
@@ -100,7 +102,7 @@ function setBadge(userCount)
 	badge.innerText = userCount;
 }
 
-function rerenderWidgets() 
+export function rerenderWidgets() 
 {
 	renderPanel();
 	renderBadge();
@@ -121,6 +123,9 @@ function renderPanel()
 	const siteSettings = Discourse.__container__.lookup("site-settings:main");
 
 	let panel = document.getElementById("mumble-menu");
+	if (panel == null)
+		return; // no panel yet, no visual update.
+
 	panel.innerHTML = "<h3>Voice Server</h3>"; // clear existing DOM
 	panel.innerHTML += "<p>Join us in our Mumble server!  ";
 	if (siteSettings.mumble_daily_meet_time != '')
@@ -189,6 +194,7 @@ function renderPanel()
 
 function initMumbleWidget(api) {
 
+  /*
   api.createWidget("mumble-icon", {
     tagName: "li.header-dropdown-toggle",
 
@@ -301,7 +307,8 @@ function initMumbleWidget(api) {
     }
   });
 
-  /// EEE
+  */
+
   api.headerIcons.add("mumble", MumbleHeaderIcon, { before: "chat" });
 
   /*
@@ -324,14 +331,17 @@ function initMumbleWidget(api) {
     return {attrs, state, data: mumbleData};
   });
   */
+}
 
-  ajax("/mumble/list.json").then((result) => {
-    if (result.data) {
-      mumbleData = result.data;
-      rerenderWidgets()
-    }
-  });
-
+export function requestInitialData()
+{
+	// This requests the initial population of data so status is correct right when page loads.
+	ajax("/mumble/list.json").then((result) => {
+		if (result.data) {
+		  mumbleData = result.data;
+		  rerenderWidgets()
+		}
+	  });
 }
 
 export default {
