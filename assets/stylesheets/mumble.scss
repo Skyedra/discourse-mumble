@@ -24,7 +24,9 @@
 #mumble-user-count-badge
 {
 	position: absolute;
-	left: 0px;
+	font-size: 14px;
+	top: 0px;
+	right: 3px;
 	background-color: dark-light-choose(scale-color($primary, $lightness: 15%), scale-color($secondary, $lightness: 15%));
 	padding: 2px;
 	margin-bottom: 10px;
