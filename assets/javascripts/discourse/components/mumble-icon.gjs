@@ -1,5 +1,6 @@
 import Component from "@glimmer/component";
 import { service } from "@ember/service";
+import { modifier as modifierFn } from "ember-modifier";
 import DButton from "discourse/components/d-button";
 import concatClass from "discourse/helpers/concat-class";
 import icon from "discourse-common/helpers/d-icon";
@@ -10,6 +11,8 @@ import DropdownMenu from "discourse/components/dropdown-menu";
 import { action } from "@ember/object";
 import { rerenderWidgets } from "../initializers/extend-for-mumble";
 import { requestInitialData } from "../initializers/extend-for-mumble";
+
+let addedEventHandler = false;
 
 export default class MumbleHeaderIcon extends Component {
   @service currentUser;
@@ -31,11 +34,22 @@ export default class MumbleHeaderIcon extends Component {
 
     this.mumbleVisible = !this.mumbleVisible;
 
+	this.updateVisibility();
+  }
+
+  updateVisibility()
+  {
 	// I have no idea how to do this the discourse way >.<
 	if (this.mumbleVisible)
 	{
 		document.getElementById("mumble-menu").style.display = 'block';
 		document.getElementsByClassName("mumble-dropdown")[0].classList.add('active');  // no idea how to get discourse to just use an id for the button >.<
+
+		if (!this.addedEventHandler)
+		{
+			$('body').click((e) => { this.focusOutHandler(e); });
+			this.addedEventHandler = true;
+		}
 
 		rerenderWidgets(); // even if data isn't available, can at least render general info
 	}
@@ -43,6 +57,17 @@ export default class MumbleHeaderIcon extends Component {
 	{
 		document.getElementById("mumble-menu").style.display = 'none';
 		document.getElementsByClassName("mumble-dropdown")[0].classList.remove('active');  // no idea how to get discourse to just use an id for the button >.<
+	}
+  }
+
+  focusOutHandler(e)
+  {
+	// Did user click somewhere else?  If so, dismiss popup
+	if (e.target.closest('.mumble-dropdown') == null &&
+		e.target.closest('.mumble-menu-panel') == null)
+	{
+		this.mumbleVisible = false;
+		this.updateVisibility();
 	}
   }
 
