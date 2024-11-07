@@ -1,41 +1,5 @@
-.mumble-badge {
-  left: unset !important;
-  right: 0;
-}
-
-.mumble-panel {
-  cursor: pointer;
-  text-align: left;
-
-  .mumble-panel-header {
-    color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
-  }
-
-  .fa {
-    margin-right: 5px;
-    font-size: 14px !important;
-    line-height: 1.7;
-  }
-
-  .mumble-channel, .mumble-user {
-    margin-left: 15px;
-
-    &.root {
-      margin-left: 0;
-    }
-  }
-
-  .mumble-channel-name {
-    color: $tertiary;
-  }
-
-  .mumble-user.idle .fa {
-    color: dark-light-choose(scale-color($primary, $lightness: 75%), scale-color($secondary, $lightness: 75%));
-  }
-}
-
-.mumble-chat-list {
-
+.mumble-chat-list 
+{
 	.mumble-channel-name
 	{
 		color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
